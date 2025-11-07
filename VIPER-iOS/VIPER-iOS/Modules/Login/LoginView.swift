@@ -49,6 +49,16 @@ struct LoginView: View {
             }
         }
         .navigationTitle("Login")
+        .alert("Error", isPresented: Binding(
+            get: { !state.errorMessage.isEmpty },
+            set: { if !$0 { state.errorMessage = "" } }), actions: {
+                Button("OK") {}
+            }, message: {
+                Text(state.errorMessage)
+        })
+        .onAppear {
+            (presenter as? LoginPresenter)?.view = state
+        }
     }
 }
 
