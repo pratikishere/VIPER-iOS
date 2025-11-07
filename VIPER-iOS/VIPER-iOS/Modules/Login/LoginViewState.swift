@@ -9,9 +9,28 @@ import SwiftUI
 import Observation
 
 @Observable
-@MainActor
-class LoginViewState {
-    var isLoading: Bool = false
-    var email: String = ""
-    var password: String = ""
+public class LoginViewState {
+    public var isLoading: Bool
+    public var email: String
+    public var password: String
+    public var errorMessage: String
+    
+    public init(isLoading: Bool = false, email: String = "", password: String = "", errorMessage: String = "") {
+        self.isLoading = isLoading
+        self.email = email
+        self.password = password
+        self.errorMessage = errorMessage
+    }
+}
+
+extension LoginViewState: LoginViewProtocol {
+    @MainActor
+    public func showLoading() {
+        isLoading = true
+    }
+    
+    @MainActor
+    public func hideLoading() {
+        isLoading = false
+    }
 }

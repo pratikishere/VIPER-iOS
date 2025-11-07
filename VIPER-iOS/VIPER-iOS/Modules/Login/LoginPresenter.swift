@@ -11,8 +11,17 @@ protocol LoginPresenterProtocol: AnyObject {
     func didTapLogin(email: String, password: String)
 }
 
-class LoginPresenter: LoginPresenterProtocol {
-    func didTapLogin(email: String, password: String) {
+public class LoginPresenter: LoginPresenterProtocol {
+    public weak var view: LoginViewProtocol?
+    
+    public init() {
         
+    }
+    
+    public func didTapLogin(email: String, password: String) {
+        guard !email.isEmpty, !password.isEmpty else {
+            (view as? LoginViewState)?.errorMessage = "Please fill all the fields"
+            return
+        }
     }
 }

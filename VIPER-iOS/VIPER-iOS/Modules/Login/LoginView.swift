@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+public protocol LoginViewProtocol: AnyObject {
+    func showLoading()
+    func hideLoading()
+}
+
 struct LoginView: View {
     
     @State private var state: LoginViewState
