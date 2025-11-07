@@ -10,9 +10,11 @@ import SwiftUI
 struct LoginView: View {
     
     @State private var state: LoginViewState
+    var presenter: LoginPresenterProtocol
     
-    init(state: LoginViewState) {
+    init(state: LoginViewState, presenter: LoginPresenterProtocol) {
         self._state = State(wrappedValue: state)
+        self.presenter = presenter
     }
     
     var body: some View {
@@ -29,7 +31,7 @@ struct LoginView: View {
                 
                 Section {
                     Button("Login", action: {
-                        
+                        presenter.didTapLogin(email: state.email, password: state.password)
                     })
                     .disabled(state.isLoading)
                 }
@@ -46,22 +48,22 @@ struct LoginView: View {
 }
 
 #Preview("Default") {
-    LoginView(state: LoginViewState())
+    LoginView(state: LoginViewState(), presenter: LoginPresenter())
 }
 
 #Preview("Loading State") {
-    let mockState = LoginViewState()
-    mockState.isLoading = true
-    mockState.email = "user@example.com"
+    let state = LoginViewState()
+    state.isLoading = true
+    state.email = "user@example.com"
     
-    return LoginView(state: mockState)
+    return LoginView(state: state, presenter: LoginPresenter())
 }
 
 #Preview("Filled State") {
-    let mockState = LoginViewState()
-    mockState.isLoading = true
-    mockState.email = "user@example.com"
-    mockState.password = "securepassword"
+    let state = LoginViewState()
+    state.isLoading = true
+    state.email = "user@example.com"
+    state.password = "securepassword"
     
-    return LoginView(state: mockState)
+    return LoginView(state: state, presenter: LoginPresenter())
 }
