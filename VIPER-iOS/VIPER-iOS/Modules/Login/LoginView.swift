@@ -9,17 +9,21 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State var isLoading: Bool = false
+    @State private var state: LoginViewState
+    
+    init(state: LoginViewState) {
+        self._state = State(wrappedValue: state)
+    }
     
     var body: some View {
         NavigationStack {
             Form {
                 Section("Credentials") {
-                    TextField("Email", text: .constant(""))
+                    TextField("Email", text: $state.email)
                         .textContentType(.emailAddress)
                         .textInputAutocapitalization(.none)
                     
-                    SecureField("Password", text: .constant(""))
+                    SecureField("Password", text: $state.password)
                         .textContentType(.password)
                 }
                 
@@ -27,10 +31,10 @@ struct LoginView: View {
                     Button("Login", action: {
                         
                     })
-                    .disabled(isLoading)
+                    .disabled(state.isLoading)
                 }
                 
-                if isLoading {
+                if state.isLoading {
                     ProgressView()
                         .progressViewStyle(.circular)
                         .frame(maxWidth: .infinity)
@@ -41,10 +45,23 @@ struct LoginView: View {
     }
 }
 
-#Preview("Normal state") {
-    LoginView()
+#Preview("Default") {
+    LoginView(state: LoginViewState())
 }
 
 #Preview("Loading State") {
-    LoginView(isLoading: true)
+    let mockState = LoginViewState()
+    mockState.isLoading = true
+    mockState.email = "user@example.com"
+    
+    return LoginView(state: mockState)
+}
+
+#Preview("Filled State") {
+    let mockState = LoginViewState()
+    mockState.isLoading = true
+    mockState.email = "user@example.com"
+    mockState.password = "securepassword"
+    
+    return LoginView(state: mockState)
 }

@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct VIPER_iOSApp: App {
+    private let loginState = LoginViewState()
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            LoginView(state: loginState)
         }
     }
 }
