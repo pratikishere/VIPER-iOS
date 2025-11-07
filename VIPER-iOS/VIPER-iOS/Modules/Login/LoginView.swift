@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 public protocol LoginViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()

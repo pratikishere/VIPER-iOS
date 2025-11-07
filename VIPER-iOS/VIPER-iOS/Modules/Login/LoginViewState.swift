@@ -24,17 +24,15 @@ public class LoginViewState {
 }
 
 extension LoginViewState: LoginViewProtocol {
-    @MainActor
+    
     public func showLoading() {
         isLoading = true
     }
     
-    @MainActor
     public func hideLoading() {
         isLoading = false
     }
     
-    @MainActor
     public func showErrorMessage(message: String) {
         errorMessage = message
     }
