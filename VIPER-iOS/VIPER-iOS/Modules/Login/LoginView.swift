@@ -10,6 +10,7 @@ import SwiftUI
 public protocol LoginViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
+    func showErrorMessage(message: String)
 }
 
 struct LoginView: View {

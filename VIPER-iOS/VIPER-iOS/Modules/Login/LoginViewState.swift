@@ -33,4 +33,9 @@ extension LoginViewState: LoginViewProtocol {
     public func hideLoading() {
         isLoading = false
     }
+    
+    @MainActor
+    public func showErrorMessage(message: String) {
+        errorMessage = message
+    }
 }

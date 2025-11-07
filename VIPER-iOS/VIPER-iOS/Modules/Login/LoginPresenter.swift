@@ -14,13 +14,11 @@ protocol LoginPresenterProtocol: AnyObject {
 public class LoginPresenter: LoginPresenterProtocol {
     public weak var view: LoginViewProtocol?
     
-    public init() {
-        
-    }
+    public init() {}
     
     public func didTapLogin(email: String, password: String) {
         guard !email.isEmpty, !password.isEmpty else {
-            (view as? LoginViewState)?.errorMessage = "Please fill all the fields"
+            view?.showErrorMessage(message: "Please fill all the fields")
             return
         }
     }

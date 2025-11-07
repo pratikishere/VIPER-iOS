@@ -26,7 +26,7 @@ final class LoginPresenterTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_emptyFields_showsError() {
+    func test_emptyEmailAndPasswordFields_showsError() {
         let email = ""
         let password = ""
         
