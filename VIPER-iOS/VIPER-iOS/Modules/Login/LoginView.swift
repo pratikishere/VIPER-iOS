@@ -20,7 +20,7 @@ struct LoginView: View {
     var presenter: LoginPresenterProtocol
     
     init(state: LoginViewState, presenter: LoginPresenterProtocol) {
-        self._state = State(wrappedValue: state)
+        self._state = State(initialValue: state)
         self.presenter = presenter
     }
     
