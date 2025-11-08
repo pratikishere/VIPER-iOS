@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@MainActor
 public protocol LoginViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
@@ -65,7 +64,7 @@ struct LoginView: View {
 }
 
 #Preview("Default") {
-    LoginView(state: LoginViewState(), presenter: LoginPresenter())
+    LoginModuleBuilder.build()
 }
 
 #Preview("Loading State") {
@@ -73,7 +72,7 @@ struct LoginView: View {
     state.isLoading = true
     state.email = "user@example.com"
     
-    return LoginView(state: state, presenter: LoginPresenter())
+    return LoginModuleBuilder.build(with: state)
 }
 
 #Preview("Filled State") {
@@ -82,5 +81,5 @@ struct LoginView: View {
     state.email = "user@example.com"
     state.password = "securepassword"
     
-    return LoginView(state: state, presenter: LoginPresenter())
+    return LoginModuleBuilder.build(with: state)
 }

@@ -9,12 +9,17 @@ import SwiftUI
 
 @main
 struct VIPER_iOSApp: App {
-    private let loginState = LoginViewState()
-    private let presenter = LoginPresenter()
-    
     var body: some Scene {
         WindowGroup {
-            LoginView(state: loginState, presenter: presenter)
+            LoginModuleBuilder.build()
         }
+    }
+}
+
+struct LoginModuleBuilder {
+    static func build(with state: LoginViewState = LoginViewState()) -> some View {
+        let interactor = LoginInteractor()
+        let presenter = LoginPresenter(interactor: interactor)
+        return LoginView(state: state, presenter: presenter)
     }
 }

@@ -13,13 +13,37 @@ protocol LoginPresenterProtocol: AnyObject {
 
 public class LoginPresenter: LoginPresenterProtocol {
     public weak var view: LoginViewProtocol?
+    public var interactor: LoginInteractorProtocol
     
-    public init() {}
+    public init(interactor: LoginInteractorProtocol) {
+        self.interactor = interactor
+    }
     
     public func didTapLogin(email: String, password: String) {
         guard !email.isEmpty, !password.isEmpty else {
             view?.showErrorMessage(message: "Please fill all the fields")
             return
         }
+        
+        view?.showLoading()
+        interactor.login(email: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.view?.hideLoading()
+                switch result {
+                case .success:
+                    self?.loginSucceeded()
+                case .failure(let error):
+                    self?.loginFailed(error: error)
+                }
+            }
+        }
+    }
+    
+    private func loginSucceeded() {
+        
+    }
+
+    private func loginFailed(error: Error) {
+        view?.showErrorMessage(message: error.localizedDescription)
     }
 }
