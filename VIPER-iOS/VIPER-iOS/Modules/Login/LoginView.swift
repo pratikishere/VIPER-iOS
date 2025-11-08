@@ -46,6 +46,7 @@ struct LoginView: View {
                     ProgressView()
                         .progressViewStyle(.circular)
                         .frame(maxWidth: .infinity)
+                        .id(UUID())
                 }
             }
         }
