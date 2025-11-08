@@ -26,13 +26,15 @@ public class LoginPresenter: LoginPresenterProtocol {
         }
         
         view?.showLoading()
-        interactor.login(email: email, password: password) { [weak self] result in
-            self?.view?.hideLoading()
+        
+        Task { @MainActor in
+            let result = await interactor.login(email: email, password: password)
+            view?.hideLoading()
             switch result {
             case .success:
-                self?.loginSucceeded()
+                loginSucceeded()
             case .failure(let error):
-                self?.loginFailed(error: error)
+                loginFailed(error: error)
             }
         }
     }

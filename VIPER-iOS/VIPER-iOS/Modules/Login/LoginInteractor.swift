@@ -13,7 +13,7 @@ public enum LoginResult {
 }
 
 public protocol LoginInteractorProtocol {
-    func login(email: String, password: String, completion: @escaping (LoginResult) -> Void)
+    func login(email: String, password: String) async -> LoginResult
 }
 
 public class LoginInteractor: LoginInteractorProtocol {
@@ -33,15 +33,14 @@ public class LoginInteractor: LoginInteractorProtocol {
     
     public init() {}
     
-    public func login(email: String, password: String, completion: @escaping (LoginResult) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            guard let self else { return }
-            if email == dummyEmail && password == dummyPassword {
-                let user = User(email: email, password: password)
-                completion(.success(user))
-            } else {
-                completion(.failure(Error.invalidCredentials))
-            }
+    public func login(email: String, password: String) async -> LoginResult {
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        
+        if email == dummyEmail && password == dummyPassword {
+            let user = User(email: email, password: password)
+            return .success(user)
+        } else {
+            return .failure(Error.invalidCredentials)
         }
     }
 }
