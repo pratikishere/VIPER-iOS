@@ -24,12 +24,12 @@ So that I can access the home screen with welcome message
 
 ```
 Given the user is on login screen
-When user enters correct username and password and taps on login button
+When user enters correct email and password and taps on login button
 Then the loading indicator should appear
 And after successful authentication
 Then the loading indicator should disappear
 And app should navigate to home screen
-And Home screen should display welcome <username> message
+And Home screen should display welcome message
 ```
 
 ### User Story 2: Invalid credentials
@@ -44,7 +44,7 @@ So that I can correct my input
 
 ```
 Given the user is on login screen
-When user enters wrong username and password and taps on login button
+When user enters wrong email and password and taps on login button
 Then a loading indicator should appear briefly
 And the loading indicator should disappear
 And an error alert should appear with title "Error"
