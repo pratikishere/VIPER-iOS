@@ -7,11 +7,6 @@
 
 import Foundation
 
-public struct User {
-    let email: String
-    let password: String
-}
-
 public protocol LoginInteractorProtocol {
     func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void)
 }
