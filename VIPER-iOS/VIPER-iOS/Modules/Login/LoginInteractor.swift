@@ -22,6 +22,13 @@ public class LoginInteractor: LoginInteractorProtocol {
     
     public enum Error: Swift.Error {
         case invalidCredentials
+        
+        var description: String {
+            switch self {
+            case .invalidCredentials:
+                return "Invalid credentials"
+            }
+        }
     }
     
     public init() {}

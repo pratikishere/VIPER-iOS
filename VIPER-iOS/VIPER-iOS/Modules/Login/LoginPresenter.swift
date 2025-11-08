@@ -27,14 +27,12 @@ public class LoginPresenter: LoginPresenterProtocol {
         
         view?.showLoading()
         interactor.login(email: email, password: password) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.view?.hideLoading()
-                switch result {
-                case .success:
-                    self?.loginSucceeded()
-                case .failure(let error):
-                    self?.loginFailed(error: error)
-                }
+            self?.view?.hideLoading()
+            switch result {
+            case .success:
+                self?.loginSucceeded()
+            case .failure(let error):
+                self?.loginFailed(error: error)
             }
         }
     }
@@ -44,6 +42,6 @@ public class LoginPresenter: LoginPresenterProtocol {
     }
 
     private func loginFailed(error: Error) {
-        view?.showErrorMessage(message: error.localizedDescription)
+        view?.showErrorMessage(message: (error as? LoginInteractor.Error)?.description ?? error.localizedDescription)
     }
 }
