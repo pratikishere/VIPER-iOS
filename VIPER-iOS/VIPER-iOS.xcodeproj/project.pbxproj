@@ -32,11 +32,6 @@
 			path = "VIPER-iOSTests";
 			sourceTree = "<group>";
 		};
-		300DDC602EBE6724009F7F2B /* VIPER-iOSUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "VIPER-iOSUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +57,6 @@
 			children = (
 				300DDC482EBE6722009F7F2B /* VIPER-iOS */,
 				300DDC562EBE6724009F7F2B /* VIPER-iOSTests */,
-				300DDC602EBE6724009F7F2B /* VIPER-iOSUITests */,
 				300DDC472EBE6722009F7F2B /* Products */,
 			);
 			sourceTree = "<group>";
