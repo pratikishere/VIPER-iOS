@@ -7,20 +7,33 @@
 
 import Foundation
 
+public enum LoginResult {
+    case success(User)
+    case failure(Error)
+}
+
 public protocol LoginInteractorProtocol {
-    func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void)
+    func login(email: String, password: String, completion: @escaping (LoginResult) -> Void)
 }
 
 public class LoginInteractor: LoginInteractorProtocol {
+    public let dummyEmail = "test@example.com"
+    public let dummyPassword = "password"
+    
+    public enum Error: Swift.Error {
+        case invalidCredentials
+    }
+    
     public init() {}
     
-    public func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if email == "test@example.com" && password == "password" {
+    public func login(email: String, password: String, completion: @escaping (LoginResult) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self else { return }
+            if email == dummyEmail && password == dummyPassword {
                 let user = User(email: email, password: password)
                 completion(.success(user))
             } else {
-                completion(.failure(NSError(domain: "LoginError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid credentials"])))
+                completion(.failure(Error.invalidCredentials))
             }
         }
     }
