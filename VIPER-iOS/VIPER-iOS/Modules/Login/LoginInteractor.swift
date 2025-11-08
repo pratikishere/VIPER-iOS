@@ -12,6 +12,8 @@ public protocol LoginInteractorProtocol {
 }
 
 public class LoginInteractor: LoginInteractorProtocol {
+    public init() {}
+    
     public func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if email == "test@example.com" && password == "password" {

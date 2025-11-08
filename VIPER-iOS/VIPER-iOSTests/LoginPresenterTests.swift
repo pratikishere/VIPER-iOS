@@ -8,19 +8,23 @@
 import XCTest
 import VIPER_iOS
 
+@MainActor
 final class LoginPresenterTests: XCTestCase {
     
     var presenter: LoginPresenter!
+    var interactor: LoginInteractor!
     var state: LoginViewState!
 
     override func setUp() {
         super.setUp()
-        presenter = LoginPresenter()
+        interactor = LoginInteractor()
+        presenter = LoginPresenter(interactor: interactor)
         state = LoginViewState()
         presenter.view = state
     }
     
     override func tearDown() {
+        interactor = nil
         presenter = nil
         state = nil
         super.tearDown()
