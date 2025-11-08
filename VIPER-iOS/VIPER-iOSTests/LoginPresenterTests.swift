@@ -30,7 +30,7 @@ final class LoginPresenterTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_showsErrorOnLoginButtonTapWhenEmailAndPasswordFieldsAreEmpty() {
+    func test_loginButtonTap_showsErrorWhenEmailAndPasswordFieldsAreEmpty() {
         let email = ""
         let password = ""
         
@@ -39,7 +39,7 @@ final class LoginPresenterTests: XCTestCase {
         XCTAssertEqual(state.errorMessage, "Please fill all the fields")
     }
     
-    func test_showsErrorOnLoginButtonTapWhenEmailFieldsIsEmpty() {
+    func test_loginButtonTap_showsErrorOnWhenEmailFieldIsEmpty() {
         let email = ""
         let password = "test"
         
@@ -48,7 +48,7 @@ final class LoginPresenterTests: XCTestCase {
         XCTAssertEqual(state.errorMessage, "Please fill all the fields")
     }
     
-    func test_showsErrorOnLoginButtonTapWhenPasswordFieldsIsEmpty() {
+    func test_loginButtonTap_showsErrorOnWhenPasswordFieldIsEmpty() {
         let email = "test@test.com"
         let password = ""
         
