@@ -26,8 +26,26 @@ final class LoginPresenterTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_emptyEmailAndPasswordFields_showsError() {
+    func test_showsErrorOnLoginButtonTapWhenEmailAndPasswordFieldsAreEmpty() {
         let email = ""
+        let password = ""
+        
+        presenter.didTapLogin(email: email, password: password)
+        
+        XCTAssertEqual(state.errorMessage, "Please fill all the fields")
+    }
+    
+    func test_showsErrorOnLoginButtonTapWhenEmailFieldsIsEmpty() {
+        let email = ""
+        let password = "test"
+        
+        presenter.didTapLogin(email: email, password: password)
+        
+        XCTAssertEqual(state.errorMessage, "Please fill all the fields")
+    }
+    
+    func test_showsErrorOnLoginButtonTapWhenPasswordFieldsIsEmpty() {
+        let email = "test@test.com"
         let password = ""
         
         presenter.didTapLogin(email: email, password: password)
