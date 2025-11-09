@@ -28,13 +28,3 @@ struct LoginModuleBuilder {
         return UINavigationController(rootViewController: viewController)
     }
 }
-
-struct UIKitRepresentedView<RootView: UIViewController>: UIViewControllerRepresentable {
-    let rootView: RootView
-    
-    func makeUIViewController(context: Context) -> RootView {
-        rootView
-    }
-    
-    func updateUIViewController(_ uiViewController: RootView, context: Context) {}
-}
