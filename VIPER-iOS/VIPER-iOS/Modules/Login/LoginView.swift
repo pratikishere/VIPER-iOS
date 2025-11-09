@@ -58,9 +58,6 @@ struct LoginView: View {
             }, message: {
                 Text(state.errorMessage)
         })
-        .onAppear {
-            (presenter as? LoginPresenter)?.view = state
-        }
     }
 }
 

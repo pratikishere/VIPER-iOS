@@ -20,6 +20,7 @@ struct LoginModuleBuilder {
     static func build(with state: LoginViewState = LoginViewState()) -> some View {
         let interactor = LoginInteractor()
         let presenter = LoginPresenter(interactor: interactor)
+        presenter.view = state
         return LoginView(state: state, presenter: presenter)
     }
 }
