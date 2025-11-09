@@ -8,25 +8,24 @@
 import XCTest
 import VIPER_iOS
 
-@MainActor
 final class LoginPresenterTests: XCTestCase {
     
     var presenter: LoginPresenter!
-    var interactor: LoginInteractor!
-    var state: LoginViewState!
+    var mockView: MockLoginView!
+    var interactor: MockLoginInteractor!
 
     override func setUp() {
         super.setUp()
-        interactor = LoginInteractor()
+        interactor = MockLoginInteractor()
         presenter = LoginPresenter(interactor: interactor)
-        state = LoginViewState()
-        presenter.view = state
+        mockView = MockLoginView()
+        
+        presenter.view = mockView
     }
     
     override func tearDown() {
         interactor = nil
         presenter = nil
-        state = nil
         super.tearDown()
     }
     
@@ -36,7 +35,9 @@ final class LoginPresenterTests: XCTestCase {
         
         presenter.didTapLogin(email: email, password: password)
         
-        XCTAssertEqual(state.errorMessage, "Please fill all the fields")
+        XCTAssertTrue(mockView.showErrorMessageCalled)
+        XCTAssertEqual(mockView.lastErrorMessage, expectedAllFieldsErrorMessage)
+        XCTAssertFalse(mockView.showLoadingCalled)
     }
     
     func test_loginButtonTap_showsErrorOnWhenEmailFieldIsEmpty() {
@@ -45,7 +46,8 @@ final class LoginPresenterTests: XCTestCase {
         
         presenter.didTapLogin(email: email, password: password)
         
-        XCTAssertEqual(state.errorMessage, "Please fill all the fields")
+        XCTAssertTrue(mockView.showErrorMessageCalled)
+        XCTAssertEqual(mockView.lastErrorMessage, expectedAllFieldsErrorMessage)
     }
     
     func test_loginButtonTap_showsErrorOnWhenPasswordFieldIsEmpty() {
@@ -54,6 +56,13 @@ final class LoginPresenterTests: XCTestCase {
         
         presenter.didTapLogin(email: email, password: password)
         
-        XCTAssertEqual(state.errorMessage, "Please fill all the fields")
+        XCTAssertTrue(mockView.showErrorMessageCalled)
+        XCTAssertEqual(mockView.lastErrorMessage, expectedAllFieldsErrorMessage)
+    }
+    
+    // MARK: - Helpers
+    
+    private var expectedAllFieldsErrorMessage: String {
+        presenter.allFieldsErrorMessage
     }
 }

@@ -11,9 +11,10 @@ protocol LoginPresenterProtocol: AnyObject {
     func didTapLogin(email: String, password: String)
 }
 
-public class LoginPresenter: LoginPresenterProtocol {
+public final class LoginPresenter: LoginPresenterProtocol {
     public weak var view: LoginViewProtocol?
     public var interactor: LoginInteractorProtocol
+    public let allFieldsErrorMessage = "Please fill all the fields"
     
     public init(interactor: LoginInteractorProtocol) {
         self.interactor = interactor
@@ -21,7 +22,7 @@ public class LoginPresenter: LoginPresenterProtocol {
     
     public func didTapLogin(email: String, password: String) {
         guard !email.isEmpty, !password.isEmpty else {
-            view?.showErrorMessage(message: "Please fill all the fields")
+            view?.showErrorMessage(message: allFieldsErrorMessage)
             return
         }
         
