@@ -11,13 +11,13 @@ protocol HomeViewProtocol: AnyObject {
     func showUser(_ user: User)
 }
 
-class HomeViewController: UIViewController {
+public class HomeViewController: UIViewController {
     private let welcomeLabel = UILabel()
     private let iconImageView = UIImageView()
     
-    var presenter: HomePresenterProtocol?
+    public var presenter: HomePresenterProtocol?
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         presenter?.viewDidLoad()

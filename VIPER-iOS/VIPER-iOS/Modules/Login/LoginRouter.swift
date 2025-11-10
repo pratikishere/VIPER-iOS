@@ -11,14 +11,14 @@ public protocol LoginRouterProtocol: AnyObject {
     func navigateToHome(user: User)
 }
 
-class LoginRouter: LoginRouterProtocol {
+public class LoginRouter: LoginRouterProtocol {
     weak var navigationController: UINavigationController?
     
-    init(navigationController: UINavigationController) {
+    public init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
-    func navigateToHome(user: User) {
+    public func navigateToHome(user: User) {
         let presenter = HomePresenter(user: user)
         let homeViewController = HomeViewController()
         homeViewController.presenter = presenter

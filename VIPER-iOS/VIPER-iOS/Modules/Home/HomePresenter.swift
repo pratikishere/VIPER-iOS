@@ -7,19 +7,19 @@
 
 import Foundation
 
-protocol HomePresenterProtocol {
+public protocol HomePresenterProtocol {
     func viewDidLoad()
 }
 
-class HomePresenter: HomePresenterProtocol {
+public class HomePresenter: HomePresenterProtocol {
     weak var view: HomeViewProtocol?
-    private let user: User
+    public let user: User
     
     init(user: User) {
         self.user = user
     }
     
-    func viewDidLoad() {
+    public func viewDidLoad() {
         view?.showUser(user)
     }
 }
