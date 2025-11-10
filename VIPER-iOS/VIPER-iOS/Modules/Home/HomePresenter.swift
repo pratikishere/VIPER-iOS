@@ -19,6 +19,10 @@ public class HomePresenter: HomePresenterProtocol {
         self.user = user
     }
     
+    deinit {
+        debugPrint("HomePresenter deinit")
+    }
+    
     public func viewDidLoad() {
         view?.showUser(user)
     }

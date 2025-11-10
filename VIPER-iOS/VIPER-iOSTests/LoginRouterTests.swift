@@ -8,16 +8,6 @@
 import XCTest
 import VIPER_iOS
 
-class MockNavigationController: UINavigationController {
-    var pushedViewControllers = [UIViewController]()
-    var lastPushAnimated: Bool?
-    
-    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        pushedViewControllers.append(viewController)
-        lastPushAnimated = animated
-    }
-}
-
 final class LoginRouterTests: XCTestCase {
     
     private var router: LoginRouter!

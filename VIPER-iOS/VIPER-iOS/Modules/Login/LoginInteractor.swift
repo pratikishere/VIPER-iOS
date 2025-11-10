@@ -33,6 +33,10 @@ public class LoginInteractor: LoginInteractorProtocol {
     
     public init() {}
     
+    deinit {
+        debugPrint("LoginInteractor deinit")
+    }
+    
     public func login(email: String, password: String) async -> LoginResult {
         try? await Task.sleep(nanoseconds: 1_000_000_000)
         

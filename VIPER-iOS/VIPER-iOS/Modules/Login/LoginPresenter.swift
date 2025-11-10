@@ -22,6 +22,10 @@ public final class LoginPresenter: LoginPresenterProtocol {
         self.router = router
     }
     
+    deinit {
+        debugPrint("LoginPresenter deinit")
+    }
+    
     public func didTapLogin(email: String, password: String) {
         guard !email.isEmpty, !password.isEmpty else {
             view?.showErrorMessage(message: allFieldsErrorMessage)
