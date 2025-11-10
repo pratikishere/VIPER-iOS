@@ -20,11 +20,13 @@ struct VIPER_iOSApp: App {  // Replace "YourApp" with your actual app name
 
 struct LoginModuleBuilder {
     static func build() -> UIViewController {
-        let interactor = LoginInteractor()
-        let presenter = LoginPresenter(interactor: interactor)
         let viewController = LoginViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        let interactor = LoginInteractor()
+        let router = LoginRouter(navigationController: navigationController)
+        let presenter = LoginPresenter(interactor: interactor, router: router)
         viewController.presenter = presenter
         presenter.view = viewController
-        return UINavigationController(rootViewController: viewController)
+        return navigationController
     }
 }

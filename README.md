@@ -1,7 +1,20 @@
 # VIPER-iOS
-This repo is to demonstrate how can VIPER architecture be used in iOS.
+This repo is to demonstrate how can VIPER architecture be used in iOS. The repo has UIKit implementation as VIPER is better than UIKit + MVC chaos.
 
-# Core components of VIPER
+The following is screen recording of demo application
+
+https://github.com/user-attachments/assets/bb7ff5a0-cb62-4c8a-ad92-cf882990d886
+
+
+## Why VIPER is not best fit for SwiftUI
+| VIPER principle | Conflict with SwiftUI |
+| ----------------| --------------------- |
+| Presenter owns logic & updates View via protocol | SwiftUI uses data flow (@State, @Binding, @ObservedObject) |
+| Manual wiring (Builder, Router) | SwiftUI prefers dependency injection via @Environment, init, or ViewModel |
+| Imperative UI updates | SwiftUI is declarative |
+
+
+## Core components of VIPER
 | Module | Responsibility |
 | -------| -------------- |
 | View | Displays UI - UIView, UIViewController, SwiftUI View. It forwards user actions to presenter. |

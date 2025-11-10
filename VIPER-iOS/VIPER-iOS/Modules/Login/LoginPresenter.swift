@@ -14,10 +14,16 @@ protocol LoginPresenterProtocol: AnyObject {
 public final class LoginPresenter: LoginPresenterProtocol {
     public weak var view: LoginViewProtocol?
     public var interactor: LoginInteractorProtocol
+    public var router: LoginRouterProtocol
     public let allFieldsErrorMessage = "Please fill all the fields"
     
-    public init(interactor: LoginInteractorProtocol) {
+    public init(interactor: LoginInteractorProtocol, router: LoginRouterProtocol) {
         self.interactor = interactor
+        self.router = router
+    }
+    
+    deinit {
+        debugPrint("LoginPresenter deinit")
     }
     
     public func didTapLogin(email: String, password: String) {
@@ -32,16 +38,16 @@ public final class LoginPresenter: LoginPresenterProtocol {
             let result = await interactor.login(email: email, password: password)
             view?.hideLoading()
             switch result {
-            case .success:
-                loginSucceeded()
+            case let .success(user):
+                loginSucceeded(with: user)
             case .failure(let error):
                 loginFailed(error: error)
             }
         }
     }
     
-    private func loginSucceeded() {
-        
+    private func loginSucceeded(with user: User) {
+        router.navigateToHome(user: user)
     }
 
     private func loginFailed(error: Error) {
