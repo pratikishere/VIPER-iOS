@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         configureLayout()
+        setupAccessibility()
     }
     
     private func setupUI() {
@@ -72,6 +73,18 @@ class LoginViewController: UIViewController {
             activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityView.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20)
         ])
+    }
+    
+    private func setupAccessibility() {
+        emailField.accessibilityLabel = "Email"
+        emailField.accessibilityIdentifier = "emailField"
+
+        passwordField.accessibilityLabel = "Password"
+        passwordField.accessibilityIdentifier = "passwordField"
+
+        loginButton.accessibilityLabel = "Log in"
+        loginButton.accessibilityIdentifier = "loginButton"
+        loginButton.accessibilityHint = "Logs you into your account"
     }
     
     @objc private func loginTapped() {

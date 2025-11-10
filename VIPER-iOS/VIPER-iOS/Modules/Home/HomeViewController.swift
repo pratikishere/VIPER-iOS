@@ -21,6 +21,7 @@ public class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         presenter?.viewDidLoad()
+        setupAccessibility()
     }
     
     private func setupUI() {
@@ -53,6 +54,11 @@ public class HomeViewController: UIViewController {
             stack.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
             stack.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20)
         ])
+    }
+    
+    private func setupAccessibility() {
+        welcomeLabel.accessibilityLabel = welcomeLabel.text ?? "Welcome"
+        welcomeLabel.accessibilityIdentifier = "welcomeLabel"
     }
 }
 
