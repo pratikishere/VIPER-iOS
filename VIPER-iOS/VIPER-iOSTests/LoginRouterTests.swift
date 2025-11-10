@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import VIPER_iOS
+@testable import VIPER_iOS
 
 final class LoginRouterTests: XCTestCase {
     

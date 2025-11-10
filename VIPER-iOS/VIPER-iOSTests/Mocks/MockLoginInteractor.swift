@@ -5,8 +5,7 @@
 //  Created by Pratik Patel on 9/11/2025.
 //
 
-import VIPER_iOS
-import UIKit
+@testable import VIPER_iOS
 
 class MockLoginInteractor: LoginInteractorProtocol {
     var loginResult: LoginResult?

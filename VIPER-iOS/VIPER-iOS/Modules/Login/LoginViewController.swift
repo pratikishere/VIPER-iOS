@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol LoginViewProtocol: AnyObject {
+protocol LoginViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showErrorMessage(message: String)
