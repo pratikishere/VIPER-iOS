@@ -10,9 +10,11 @@ import VIPER_iOS
 
 class MockNavigationController: UINavigationController {
     var pushedViewControllers = [UIViewController]()
+    var lastPushAnimated: Bool?
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         pushedViewControllers.append(viewController)
+        lastPushAnimated = animated
     }
 }
 
@@ -44,5 +46,10 @@ final class LoginRouterTests: XCTestCase {
         
         XCTAssertNotNil(pushedViewController.presenter)
         XCTAssertEqual((pushedViewController.presenter as? HomePresenter)?.user.email, user.email)
+    }
+    
+    func test_navigateToHome_pushedIsAnimated() {
+        router.navigateToHome(user: User(email: "", password: ""))
+        XCTAssertTrue(navigationController.lastPushAnimated ?? false)
     }
 }
