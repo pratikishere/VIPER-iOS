@@ -7,14 +7,14 @@
 
 import UIKit
 
-public protocol LoginRouterProtocol: AnyObject {
+protocol LoginRouterProtocol: AnyObject {
     func navigateToHome(user: User)
 }
 
-public class LoginRouter: LoginRouterProtocol {
-    public weak var navigationController: UINavigationController?
+final class LoginRouter: LoginRouterProtocol {
+    weak var navigationController: UINavigationController?
     
-    public init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
@@ -22,7 +22,7 @@ public class LoginRouter: LoginRouterProtocol {
         debugPrint("LoginRouter deinit")
     }
     
-    public func navigateToHome(user: User) {
+    func navigateToHome(user: User) {
         guard let navigationController else { return }
         let presenter = HomePresenter(user: user)
         let homeViewController = HomeViewController()

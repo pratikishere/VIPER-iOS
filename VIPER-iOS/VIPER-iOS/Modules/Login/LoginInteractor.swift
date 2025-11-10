@@ -16,7 +16,7 @@ public protocol LoginInteractorProtocol {
     func login(email: String, password: String) async -> LoginResult
 }
 
-public class LoginInteractor: LoginInteractorProtocol {
+final class LoginInteractor: LoginInteractorProtocol {
     public let dummyEmail = "test@example.com"
     public let dummyPassword = "password"
     
@@ -31,13 +31,13 @@ public class LoginInteractor: LoginInteractorProtocol {
         }
     }
     
-    public init() {}
+    init() {}
     
     deinit {
         debugPrint("LoginInteractor deinit")
     }
     
-    public func login(email: String, password: String) async -> LoginResult {
+    func login(email: String, password: String) async -> LoginResult {
         try? await Task.sleep(nanoseconds: 1_000_000_000)
         
         if email == dummyEmail && password == dummyPassword {

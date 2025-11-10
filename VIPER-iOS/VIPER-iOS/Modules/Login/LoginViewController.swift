@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol LoginViewProtocol: AnyObject {
+protocol LoginViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showErrorMessage(message: String)
@@ -31,26 +31,22 @@ class LoginViewController: UIViewController {
         title = "Login"
         view.backgroundColor = .systemBackground
         
-        // Email
         emailField.placeholder = "Email"
         emailField.keyboardType = .emailAddress
         emailField.autocapitalizationType = .none
         emailField.borderStyle = .roundedRect
         emailField.translatesAutoresizingMaskIntoConstraints = false
         
-        // Password
         passwordField.placeholder = "Password"
         passwordField.isSecureTextEntry = true
         passwordField.borderStyle = .roundedRect
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         
-        // Button
         loginButton.setTitle("Login", for: .normal)
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         
-        // Activity
         activityView.hidesWhenStopped = true
         activityView.translatesAutoresizingMaskIntoConstraints = false
         

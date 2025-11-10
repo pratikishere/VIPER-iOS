@@ -126,8 +126,7 @@ And no placeholder or generic text should be shown
 | -------| -------------- |
 | Performance | Login response(mock) must complete within 1 second |
 | Accessibility | All fields and buttons must have accessibility labels |
-| Test Coverage | Unit tests must cover Presenter, Interactor, Router, HomeView |
-| Integration Test | End to end flow must pass in UI test |
+| Test Coverage | Unit tests must cover Presenter, Interactor, Router |
 | Platform | Must work on iOS 18+, iPhone, iPad |
 
 

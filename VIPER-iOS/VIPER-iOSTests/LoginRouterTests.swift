@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import VIPER_iOS
+@testable import VIPER_iOS
 
 final class LoginRouterTests: XCTestCase {
     
@@ -25,8 +25,7 @@ final class LoginRouterTests: XCTestCase {
     }
     
     func test_navigateToHome_pushHomeViewControllerWithCorrectUser() {
-        let user = User(email: "test@example.com", password: "password")
-        router.navigateToHome(user: user)
+        router.navigateToHome(user: validUser)
         
         XCTAssertEqual(navigationController.pushedViewControllers.count, 1)
         guard let pushedViewController = navigationController.pushedViewControllers.first as? HomeViewController else {
@@ -35,7 +34,7 @@ final class LoginRouterTests: XCTestCase {
         }
         
         XCTAssertNotNil(pushedViewController.presenter)
-        XCTAssertEqual((pushedViewController.presenter as? HomePresenter)?.user.email, user.email)
+        XCTAssertEqual((pushedViewController.presenter as? HomePresenter)?.user.email, validUser.email)
     }
     
     func test_navigateToHome_pushedIsAnimated() {
