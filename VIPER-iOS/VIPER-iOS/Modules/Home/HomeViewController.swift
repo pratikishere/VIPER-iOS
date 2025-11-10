@@ -27,13 +27,11 @@ public class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = "Home"
 
-        // Icon
         iconImageView.image = UIImage(systemName: "checkmark.circle.fill")
         iconImageView.tintColor = .systemGreen
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
 
-        // Welcome Label
         welcomeLabel.font = .systemFont(ofSize: 24, weight: .bold)
         welcomeLabel.textAlignment = .center
         welcomeLabel.numberOfLines = 0

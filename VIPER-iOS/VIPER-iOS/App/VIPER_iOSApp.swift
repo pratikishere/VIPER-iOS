@@ -8,12 +8,11 @@
 import SwiftUI
 
 @main
-struct VIPER_iOSApp: App {  // Replace "YourApp" with your actual app name
+struct VIPER_iOSApp: App {
     var body: some Scene {
         WindowGroup {
-            // Host the UIKit VC inside SwiftUI
             UIKitRepresentedView(rootView: LoginModuleBuilder.build())
-                .ignoresSafeArea()  // Full screen
+                .ignoresSafeArea()
         }
     }
 }
