@@ -64,7 +64,7 @@ final class LoginPresenterTests: XCTestCase {
         XCTAssertEqual(view.lastErrorMessage, expectedAllFieldsErrorMessage)
     }
     
-    func test_loginButtonTap_successWhenEmailAndPasswordFieldsAreValid() {
+    func test_loginButtonTap_successNavigateToHome() {
         let email = "test@example.com"
         let password = "password"
         
