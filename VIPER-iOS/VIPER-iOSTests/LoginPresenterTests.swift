@@ -8,24 +8,29 @@
 import XCTest
 import VIPER_iOS
 
+@MainActor
 final class LoginPresenterTests: XCTestCase {
     
-    var presenter: LoginPresenter!
-    var mockView: MockLoginView!
-    var interactor: MockLoginInteractor!
+    private var presenter: LoginPresenter!
+    private var mockView: MockLoginView!
+    private var interactor: MockLoginInteractor!
+    private var router: MockLoginRouter!
 
     override func setUp() {
         super.setUp()
         interactor = MockLoginInteractor()
-        presenter = LoginPresenter(interactor: interactor)
+        router = MockLoginRouter()
+        presenter = LoginPresenter(interactor: interactor, router: router)
         mockView = MockLoginView()
         
         presenter.view = mockView
     }
     
     override func tearDown() {
+        mockView = nil
         interactor = nil
         presenter = nil
+        router = nil
         super.tearDown()
     }
     
@@ -58,6 +63,29 @@ final class LoginPresenterTests: XCTestCase {
         
         XCTAssertTrue(mockView.showErrorMessageCalled)
         XCTAssertEqual(mockView.lastErrorMessage, expectedAllFieldsErrorMessage)
+    }
+    
+    func test_loginButtonTap_successWhenEmailAndPasswordFieldsAreValid() {
+        let email = "test@example.com"
+        let password = "password"
+        
+        let expectedUser = User(email: email, password: password)
+        interactor.loginResult = .success(expectedUser)
+        
+        var receivedUser: User?
+        
+        let exp = expectation(description: "Wait for completion")
+        router.onNavigateToHome = { user in
+            receivedUser = user
+            exp.fulfill()
+        }
+        
+        presenter.didTapLogin(email: email, password: password)
+        XCTAssertTrue(mockView.showLoadingCalled)
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertEqual(receivedUser?.email ?? "", expectedUser.email)
+        XCTAssertTrue(mockView.hideLoadingCalled)
+        XCTAssertFalse(mockView.showErrorMessageCalled)
     }
     
     // MARK: - Helpers
