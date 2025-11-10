@@ -46,7 +46,7 @@ final class LoginPresenterTests: XCTestCase {
     
     func test_loginButtonTap_showsErrorOnWhenEmailFieldIsEmpty() {
         let email = ""
-        let password = "test"
+        let password = anyUserPassword()
         
         presenter.didTapLogin(email: email, password: password)
         
@@ -55,7 +55,7 @@ final class LoginPresenterTests: XCTestCase {
     }
     
     func test_loginButtonTap_showsErrorOnWhenPasswordFieldIsEmpty() {
-        let email = "test@test.com"
+        let email = anyUserEmail()
         let password = ""
         
         presenter.didTapLogin(email: email, password: password)
@@ -65,11 +65,7 @@ final class LoginPresenterTests: XCTestCase {
     }
     
     func test_loginButtonTap_successNavigateToHome() {
-        let email = "test@example.com"
-        let password = "password"
-        
-        let expectedUser = User(email: email, password: password)
-        interactor.loginResult = .success(expectedUser)
+        interactor.loginResult = .success(validUser)
         
         var receivedUser: User?
         
@@ -79,10 +75,10 @@ final class LoginPresenterTests: XCTestCase {
             exp.fulfill()
         }
         
-        presenter.didTapLogin(email: email, password: password)
+        presenter.didTapLogin(email: validUser.email, password: validUser.password)
         XCTAssertTrue(view.showLoadingCalled)
         wait(for: [exp], timeout: 1.0)
-        XCTAssertEqual(receivedUser?.email ?? "", expectedUser.email)
+        XCTAssertEqual(receivedUser?.email ?? "", validUser.email)
         XCTAssertTrue(view.hideLoadingCalled)
         XCTAssertFalse(view.showErrorMessageCalled)
     }
@@ -91,5 +87,13 @@ final class LoginPresenterTests: XCTestCase {
     
     private var expectedAllFieldsErrorMessage: String {
         presenter.allFieldsErrorMessage
+    }
+    
+    private func anyUserEmail() -> String {
+        "anyemail@example.com"
+    }
+    
+    private func anyUserPassword() -> String {
+        "password"
     }
 }

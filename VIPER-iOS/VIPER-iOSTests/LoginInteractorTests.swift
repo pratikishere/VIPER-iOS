@@ -24,25 +24,19 @@ final class LoginInteractorTests: XCTestCase {
     }
 
     func test_login_validCredentialsReturnsSuccess() async {
-        let email = interactor.dummyEmail
-        let password = interactor.dummyPassword
-        
-        let result = await interactor.login(email: email, password: password)
+        let result = await interactor.login(email: validUser.email, password: validUser.password)
         
         switch result {
         case .success(let user):
-            XCTAssertEqual(user.email, email, "Email should match")
-            XCTAssertEqual(user.password, password, "Password should match")
+            XCTAssertEqual(user.email, validUser.email, "Email should match")
+            XCTAssertEqual(user.password, validUser.password, "Password should match")
         case .failure:
             XCTFail("Expected success, but got failure")
         }
     }
         
     func test_login_invalidCredentialsReturnsError() async {
-        let email = "wrong@example.com"
-        let password = "wrongpass"
-        
-        let result = await interactor.login(email: email, password: password)
+        let result = await interactor.login(email: invalidUser.email, password: invalidUser.password)
         
         switch result {
         case .success:
