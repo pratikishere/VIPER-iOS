@@ -12,7 +12,7 @@ import VIPER_iOS
 final class LoginPresenterTests: XCTestCase {
     
     private var presenter: LoginPresenter!
-    private var mockView: MockLoginView!
+    private var view: MockLoginView!
     private var interactor: MockLoginInteractor!
     private var router: MockLoginRouter!
 
@@ -21,13 +21,12 @@ final class LoginPresenterTests: XCTestCase {
         interactor = MockLoginInteractor()
         router = MockLoginRouter()
         presenter = LoginPresenter(interactor: interactor, router: router)
-        mockView = MockLoginView()
-        
-        presenter.view = mockView
+        view = MockLoginView()
+        presenter.view = view
     }
     
     override func tearDown() {
-        mockView = nil
+        view = nil
         interactor = nil
         presenter = nil
         router = nil
@@ -40,9 +39,9 @@ final class LoginPresenterTests: XCTestCase {
         
         presenter.didTapLogin(email: email, password: password)
         
-        XCTAssertTrue(mockView.showErrorMessageCalled)
-        XCTAssertEqual(mockView.lastErrorMessage, expectedAllFieldsErrorMessage)
-        XCTAssertFalse(mockView.showLoadingCalled)
+        XCTAssertTrue(view.showErrorMessageCalled)
+        XCTAssertEqual(view.lastErrorMessage, expectedAllFieldsErrorMessage)
+        XCTAssertFalse(view.showLoadingCalled)
     }
     
     func test_loginButtonTap_showsErrorOnWhenEmailFieldIsEmpty() {
@@ -51,8 +50,8 @@ final class LoginPresenterTests: XCTestCase {
         
         presenter.didTapLogin(email: email, password: password)
         
-        XCTAssertTrue(mockView.showErrorMessageCalled)
-        XCTAssertEqual(mockView.lastErrorMessage, expectedAllFieldsErrorMessage)
+        XCTAssertTrue(view.showErrorMessageCalled)
+        XCTAssertEqual(view.lastErrorMessage, expectedAllFieldsErrorMessage)
     }
     
     func test_loginButtonTap_showsErrorOnWhenPasswordFieldIsEmpty() {
@@ -61,8 +60,8 @@ final class LoginPresenterTests: XCTestCase {
         
         presenter.didTapLogin(email: email, password: password)
         
-        XCTAssertTrue(mockView.showErrorMessageCalled)
-        XCTAssertEqual(mockView.lastErrorMessage, expectedAllFieldsErrorMessage)
+        XCTAssertTrue(view.showErrorMessageCalled)
+        XCTAssertEqual(view.lastErrorMessage, expectedAllFieldsErrorMessage)
     }
     
     func test_loginButtonTap_successWhenEmailAndPasswordFieldsAreValid() {
@@ -81,11 +80,11 @@ final class LoginPresenterTests: XCTestCase {
         }
         
         presenter.didTapLogin(email: email, password: password)
-        XCTAssertTrue(mockView.showLoadingCalled)
+        XCTAssertTrue(view.showLoadingCalled)
         wait(for: [exp], timeout: 1.0)
         XCTAssertEqual(receivedUser?.email ?? "", expectedUser.email)
-        XCTAssertTrue(mockView.hideLoadingCalled)
-        XCTAssertFalse(mockView.showErrorMessageCalled)
+        XCTAssertTrue(view.hideLoadingCalled)
+        XCTAssertFalse(view.showErrorMessageCalled)
     }
     
     // MARK: - Helpers
